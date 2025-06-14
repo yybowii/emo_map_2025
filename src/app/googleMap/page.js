@@ -18,19 +18,25 @@ export default function Home() {
     zoom: 17
   };
 
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
+
   return (
     <div style={{ height: '100vh', width: '100%' }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyD-i9wdqvm0zEG6ewyn9ckdPQRcnCbWGeo" }} // 在此填入你的 Google Maps API 金鑰
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-      >
-        <AnyReactComponent
-          lat={24.99475803413072}
-          lng={121.5688257706984}
-          text="My Marker"
-        />
-      </GoogleMapReact>
+      {apiKey ? (
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: apiKey }}
+          defaultCenter={defaultProps.center}
+          defaultZoom={defaultProps.zoom}
+        >
+          <AnyReactComponent
+            lat={24.99475803413072}
+            lng={121.5688257706984}
+            text="My Marker"
+          />
+        </GoogleMapReact>
+      ) : (
+        <p className="text-red-500">Missing Google Maps API Key</p>
+      )}
     </div>
   );
 }
